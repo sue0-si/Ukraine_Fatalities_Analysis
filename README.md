@@ -1,30 +1,35 @@
-# Proposal
-This project analyzes fatalities in Ukraine using publicly available datasets. The goal is to identify trends, patterns, and potential causes behind the reported fatalities during the ongoing conflict.
+# Ukraine Fatalities Analysis
 
-## Objectives
+This project analyzes data related to fatalities in Ukraine. The goal is to provide insights and visualizations to better understand the impact and trends over time.
 
-- Collect and preprocess relevant data sources.
-- Perform exploratory data analysis to uncover insights.
-- Visualize key findings with clear, informative charts.
-- Summarize results and discuss implications.
+## Features
+
+- Data cleaning and preprocessing
+- Statistical analysis
+- Visualizations (charts, graphs, maps)
+- Summary of key findings
 
 ## Getting Started
 
-1. Clone this repository.
-2. Install required dependencies from `requirements.txt`.
-3. Run the analysis scripts in the `notebooks/` or `src/` directory.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/Ukraine_Fatalities_Analysis.git
+    ```
+2. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3. Run the analysis scripts as described in the `notebooks/` or `src/` directory.
 
 ## Data Sources
 
-- [Ukrainian government reports](#)
-- [International organizations](#)
-- [Open-source intelligence](#)
+- [1]“Conflict Exposure,” ACLED. https://acleddata.com/conflict-exposure/ (accessed Apr. 12, 2024)
+- [2]“Data Export Tool,” ACLED. https://acleddata.com/data-export-tool/# (accessed Jul. 01, 2024)
+- [3]“catboost/catboost,” GitHub, Aug. 22, 2022. https://github.com/catboost/catboost
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
-## License
 
-This project is licensed under the MIT License.
 

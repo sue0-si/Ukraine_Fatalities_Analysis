@@ -5,48 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proposal</title>
     <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-<h1>Proposal</h1>
+<h1>Predict the Fatalities Affected by Conflict and Model Comparision</h1>
+<h1 style="font-size: medium;">: Impact of Ukraine War Different Attack Types on Fatalities in Kherson</h1>
 <h2>Introduction</h2>
 <p>
-    On February 24th, 2022, Russian forces launched a major invasion of Ukraine, marking a significant escalation in the Russo-Ukrainian war that began in 2014. The conflict has resulted in thousands of deaths and the greatest European refugee crisis since World War II. Traditional methods of collecting economic data, such as surveys and vital statistics, often lag during war time. 
-    To address this, We want to utilize satellite data along with machine learning, for timely assessments of socio-economic consequences of the war.
-    <br>
-    <br>
-    Our satellite data includes Nighttime Lights Imagery offered by ΝΟΑΑ [1], a heatmap of battles in Ukraine from Jan 1st 2018 to May 24 2024 [2], major cities with significant fighting, major highways [3], borders of Ukraine and 27 oblast borders. 
-    For socio-economic indicators, we consider annual measures of Gross National Income (GNI), Purchasing Power Parity (PPP), Gross Domestic Product (GDP) from 1987-2022 [4]. 
-    We also include Ukraine's subdivision-level Gross State Product (GSP) from  2004 to 2020 [5], monthly data on U.S. Imports of Goods by Customs Basis from Ukraine [6], U.S. Exports of Goods by F.A.S. Basis to Ukraine [7] and total bilateral aid received [8].
-    
+    On February 24th, 2022, Russian forces launched a major invasion of Ukraine, marking a signiﬁcant escalation in the Russo-Ukrainian war that began in 2014. 
+    The conﬂict has resulted in thousands of deaths and the greatest European refugee crisis since World War II. We aimed to ﬁnd the relationship between the type of attack, the top 10 frequent locations where conﬂicts occurred, and the resulting number of people exposed to unrest. 
+    To address this, we want to utilize the conﬂict and protest data in Ukraine along with machine learning, for timely assessments of the relationship between the type and location of attack and the Ukraine population. We used a dataset on violent conﬂict and protest happening in Ukraine from ACLED which tracks real-time information on the ongoing war [1].
+</p>
+<p>
+    A research from ACLED measured conﬂicts around the world and provided their datasets [2]. 
+    Their data set contains population exposed to conﬂict, 2642 cities or areas affected by conﬂict, and types of events that constitute political disorder such as battle, explosions/remote violence, and violence against civilians. We chose fatalities and types of events as a feature, and restricted the location to a specific city.
+</p>
+
 </p>
 <h2>Problem definition</h2>
 <p>
-    Identifying the socioeconomic consequences of an ongoing war is crucial for policymakers to design targeted interventions that address the most pressing issues. 
-    However, measuring the index is challenging since many areas affected by war are inaccessible due to security risks and therefore limits the scope of data collection. 
-    Therefore, the result of this project would provide the socioeconomic index that will help Ukraine to restore stability, promote recovery, and ensure long-term development. 
+    In recent years, the frequency and severity of various types of attacks, mass shootings, and civil unrest have been on the rise in Ukraine. These incidents not only result in significant loss of life but also have profound psychological and socio-economic impacts on the communities exposed to them. 
+    Despite the importance of understanding these relationships, there is a lack of comprehensive analysis that integrates the type of attack with the resulting fatalities. This gap in knowledge hinders the ability to develop targeted and effective interventions. 
+    We hypothesized that different types of attacks have varying impacts on fatalities, with certain types of violence resulting in a higher number of deaths. For instance, bombings and airstrikes tend to result in higher fatalities. 
+    In this project, we will analyze how different types of conflict events impact fatalities in a specific city.We will test our results using different Machine Learning models and algorithms.  Our purpose is to help reduce war losses in Ukraine, thereby contributing to the country's long-term development.
 </p>
 <h2>Methods</h2>
+
+<h3>Data preprocessing</h3>
 <p>
-    For data preprocessing, we will utilize OpenCV library to precisely extract data pertaining to Ukraine from global nighttime light data. Then, we will use functions from the Pandas library for data cleaning, including handling missing values and removing outliers. Additionally, we will employ functions from the scikit-learn library for feature standardization, ensuring the consistency of various economic indicators within the model.
-    <br><br>
-    We plan to implement three Machine Learning models: Convolutional Neural Network (CNN), Random Forest, and Long Short-Term Memory Network (LSTM). The CNN will be used to extract spatial features from nighttime light data, handling the complexity of geographical information. The Random Forest will be used to analyze and predict economic indicator data, with its efficient feature importance assessment. The LSTM will process time series data, it’s ideal for predicting economic dynamic changes.
+    <b>Data Cleaning: </b>From the 2022-2023 in Ukraine, we got 95780 number of incidents in total. Since we assumed locations of higher population densities and significant militarily status might have serious consequences of each event, we restricted the datasets to Kherson, the city that has the highest frequency of conﬂict events. 
+    Also, after carefully examining the dataset, we discovered that not all fatalities data are meaningful. In some conflict events, the number of deaths was not recorded, but they were still marked as 0 in the dataset. 
+    Considering that these data points could affect the dataset's accuracy and subsequently the model's performance, we filtered out all conflict data with "fatalities unknown" based on the dataset notes. We also used pandas to remove unnecessary columns except event_type and fatalities. 
+    After cleaning the original dataset, we got 726 lines of data, which later can be used in training, validating, and testing our models.
 </p>
-<h2>Goals & Expected Results</h2>
+<br>
 <p>
-    We aim to employ three quantitative metrics to evaluate our model: Accuracy, Mean Squared Error (MSE), and F1 Score. Accuracy will measure the proportion of correct predictions made by the model, with a goal of exceeding 85%. MSE will ensure precise forecast accuracy , with a target set below a predetermined threshold. F1 Score will assess the balance between precision and recall, aiming for a score above 0.75 across all models.
-    <br><br>
-    We anticipate that our approach will effectively identify and categorize changes in Ukraine's nighttime light intensity. We also expect that our model will forecast future economic trends, to provide valuable insights for future regional analysis.
+    Since our features are categorical, We use OneHotEncoder to convert categorical data into binary vectors, creating dummy variables for the feature. This process allowed the model to interpret the qualitative differences between different types of events and fatalities.
 </p>
+<div id="row-div">
+    <div>
+        <img src="src/Figure1_Correlation_Maps.png" alt="correlation_matrix_1" width=700 height="80%">
+        <p>Figure 1: Correlation Map between Event Type and Fatalities</p>
+    </div>
+    <p>
+        The correlation matrices (figure.1) conﬁrmed that the features we chose indeed have correlation with the fatalities. For example, the increase in the number of battles will lead to an increase in fatalities; the increase in the number of strategic developments will lead to a decrease in fatalities. 
+    </p>
+</div>
+
+<div id="row-div">
+    <div>
+        <img src="src/Figure2_Balance_Pie.png" alt="correlation_matrix_1" width=700 height="80%">
+        <p>Figure 2: Balance Pie of Event Types</p>
+    </div>
+    <p>
+        We also drew the balance pie (figure.2 ) of conflict types. We observed that our dataset distribution is not very balanced, as depicted in the pie chart. The largest category, Explosions/Remote violence, accounts for 51.8% of the events, while the smallest category, Protests, accounts for only 2.8%. The remaining categories, Strategic developments, Battles, and Violence against civilians, have shares of 19.1%, 13.6%, and 12.7%, respectively.    </p>
+</div>
+
+<h3>Training the models and Evaluation Metrics</h3>
+<p>
+    With the data ready, we split the dataset into training (70%), evaluating (15%) and testing (15%) sets to build and validate our model. We ﬁrst tried the <b>linear regression</b> model and ﬁtted it to the training data, with the attack types as an independent variable and the conflict fatalities as the dependent variable. 
+    Then, we used supervised Machine Learning algorithms such as <b>Random Forest</b>, <b>Decision Tree</b>, and <b>Naive Bayes</b>. Since our feature (conflict types) is categorical variables, and our labels are numeric variables, we used the <b>CatBoost</b> model, developed by Yandex[3], a novel gradient boosting algorithm, particularly well-suited for handling categorical data and preventing overﬁtting.
+</p>
+<br>
+<p>
+    <b>Mean Squared Error (MSE)</b>, <b>Mean Absolute Error (MAE)</b>, and <b>R-squared (R^2)</b> are common metrics used to evaluate the performance of supervised Machine Learning models, especially the regression models. MSE measures the average of the squares of the errors, where the error is the difference between the actual value and the predicted value. MAE measures the average magnitude of the errors in a set of predictions. R^2 measures the proportion of the variance in the dependent variable (fatalities) that is predictable from the independent variables (event  types).
+</p>
+
+<h2>Results and Discussions</h2>
+<h3>Model Accuracy</h3>
+<p>
+    For the four methods mentioned above, the R-squared values are low for both validation sets and test sets, indicating that the models do not explain a large proportion of the variance in the data. Specifically, the R² values for linear regression (Validation R²: 0.2272, Test R²: 0.2665) are relatively low, indicating a poor fit. 
+    CatBoost model has slightly better R² values (Validation R²: 0.2357, Test R²: 0.2738) since it captures some non-linear relationships in the data. Random Forest model has similar R² values (Validation R² : 0.2348, Test R² : 0.2701) to CatBoost, effectively capturing some non-linear relationships. 
+    Naive Bayes has the lowest R² values (Validation R²: 0.1928, Test R²: 0.2543) among the four methods, making it the least effective in explaining the variance in the data, which aligns with its unsuitability for regression problems.
+</p>
+<h3>Error magnitude</h3>
+<p>
+    Both the Mean Squared Error (MSE) and Mean Absolute Error (MAE) values are signiﬁcantly lower on the test set compared to the validation set, suggesting that the model's performance is worse on unseen data. This could be due to overﬁtting. Potentially there might be some other important features that we do not consider in our model but have a big effect on the exposed populations.
+</p>
+<br>
+<p>
+    Specifically, for MSE,  Linear Regression model has a 96.0896 for the validation set and 89.8024 for the test set, and for MAE having a 5.3234 for the validation set and 5.1972 for the test set. The Cat Boost MSE values (Validation set: 95.0330, Test set: 88.9115) and MAE values (Validation set: 4.9906, Test set: 4.8509) are lower compared to linear regression, suggesting better performance. 
+    The Random Forest MSE values (Validation set: 95.1414, Test set: 89.3611) and MAE values (Validation set: 4.9095, Test set: 4.7940) are slightly higher than those of CatBoost but are still better than Linear Regression, indicating that both Random Forest and CatBoost methods are good at capturing non-linear patterns. The Naive Bayes model has the highest MSE values (Validation set: 100.3670, Test set: 91.3028) and  MAE values (Validation set: 6.1468, Test set: 5.7798) among the four methods and Naive Bayes might not be suitable to capture the relationships in the data effectively.  
+</p>
+<h3>Algorithm Comparision</h3>
+<p>
+    Linear regression is the basic predictive modeling that fits a linear equation to observed data, attempts to model the relationship and find the best-fitting line through the data points. It is straightforward and easy to implement and understand the relationships between variables and also requires little computational power compared to more complex models. 
+    The main drawback of linear regression is its assumption of linearity, meaning it cannot capture non-linear relationships in the data. Also linear regression can be sensitive to outliers. When we initially used the Linear Regression algorithm for our dataset, we found that it doesn’t have the capability to automatically account for feature interactions and handle discrete data efﬁciently. It requires manual creation of interaction terms, which can be cumbersome. Moreover, Linear Regression requires one-hot encoding, which can lead to a large number of dummy variables, increasing the risk of overﬁtting and causing computational inefﬁciency.
+</p>
+<br>
+<p>
+    In contrast, CatBoost can automatically capture and model interactions between features, including categorical ones, which is suitable for our categorical event_type variable. This capability is crucial in datasets where the interaction between features signiﬁcantly inﬂuences the target variable, just like ours. Moreover, we discovered that CatBoost's training time is shorter compared to other models we tried. We suspect this is due to CatBoost's unique encoding techniques. 
+</p>
+<br>
+<p>
+    Random Forest is highly effective at capturing non-linear relationships in the data which is suitable for our data and is generally robust to overfitting.  However, our dataset only has 736 observations,which is considered as a smaller sample size. Random forest might not perform optimally with smaller datasets as it can lead to overfitting when the model is too complex for the amount of data available. 
+</p>
+<br>
+<p>
+    Naive Bayes is simple, fast, and works well with high-dimensional data, but its strong independence assumption might not hold in real-world data, leading to poor performance. For example, the relationship between fatalities and each attack type might be interdependent. These dependencies can significantly influence the outcome and Naive Bayes may fail to capture these intricate relationships and underperforms in regression tasks. The higher error metrics and lower R² values in our analysis highlight these limitations. 
+</p>
+
+<h2>Issues we fond during project</h2>
+<h3>Dataset Imbalance Issue</h3>
+<p>
+    There is a significant disparity in the proportions of different event types in the dataset. Notably, Explosions/Remote violence events account for 51.8% of the dataset, whereas Protests events make up only 2.8%. This imbalance may cause the model to favor high-frequency categories and neglect low-frequency ones, thus affecting its generalization capability.
+</p>
+<br>
+<p>
+    This imbalance suggests that Explosions/Remote violence events occur often but have little impact on fatalities, potentially distracting the model from focusing on high-impact events during training. On the other hand, Battles events, although only comprising 13.6% of the dataset, have the highest positive correlation with fatalities (0.36). This high correlation indicates that battles significantly impact fatalities, but their low frequency in the dataset might lead to inaccuracies in predicting fatalities.
+</p>
+<div>
+    <img src="src/Figure3_Distribution_Labels.png" alt="correlation_matrix_1" width=700 height="80%">
+    <p>Figure. 3 Distribution of Fatalities by Event Types</p>
+</div>
+<p>
+    We plotted a figure to analyze the label distribution (figure. 3). From the plot, it seems that the data is highly imbalanced, with a significant number of instances having a fatality count of 0. Even though these 0 values have practical meanings, the imbalance caused by them can have several impacts on the training process and the evaluation metrics of our models.
+</p>
+<br>
+<p>
+    Data imbalance can lead the model to be biased towards predicting the majority class (fatalities = 0), as the model aims to minimize overall error, and predicting the majority class more often can achieve lower errors. Additionally, the lack of sufficient minority class instances in the training data results in poor generalization for the minority class, causing underfitting. Consequently, the model's performance on predicting the minority class is typically poor in practical applications.
+</p>
+<br>
+<p>
+    The imbalance in the data can lead to misleading performance metrics. MSE and MAE might appear lower overall because the majority class (fatalities = 0) dominates, masking poor performance on minority classes. This can give a false sense of the model's accuracy. Similarly, R² value may suggest a good fit for the majority class but does not necessarily indicate accurate predictions for the minority classes. These metrics, therefore, do not fully capture the model's performance across all classes, especially the minority class.
+</p>
+<br>
+<p>
+    To address the data imbalance, resampling methods such as oversampling the minority class or undersampling the majority class might be able to help balance our dataset. Assigning higher weights to the minority during training can penalize misclassifications more heavily, which might also be able to improve our models’ performance on the minority class. 
+</p>
+<h3>Other dataset Preprocessing Related Issues</h3>
+<p>
+    Although theoretically, dataset imbalance might make our metrics appear better, the R² values from the four algorithms we tried all remain below 0.3, indicating that 70% of the variation cannot be explained by our models. This suggests a weak relationship between the independent variable (event types) and the dependent variable (fatalities). This makes sense since the data in social science areas typically have a high degree of variabilities and complexity. Using a single feature, event_type, may not be sufficient to explain the variability in fatalities. Factors such as time, specific location, number of participants, weapon type, and conflict intensity, among other socio-economic conditions, likely influence the number of fatalities. 
+    Incorporating more relevant features could significantly enhance the model's predictive power.It may also be necessary to consider the interactions between them. Employing other machine learning algorithms, such as ridge regression, could help in managing multicollinearity and enhancing the model's performance. Besides, after filtering out missing or incomplete data, we are left with only 700 data points. This dataset size may be insufficient for relatively complex models, especially when the variety of event types is considered. Increasing the dataset size could improve the model's generalization ability, leading to better results.
+</p>
+
+<h2>Next Steps</h2>
+<p>
+    To address the issues identified, we will focus on addressing dataset imbalance and incorporating additional relevant features. Specifically, we will employ resampling techniques, such as oversampling the minority class and undersampling the majority class, as well as assigning higher weights to minority class instances during training. In the next step, we will also try to enhance our dataset by including more relevant features such as temporal data, geographic coordinates, number of participants, weapon types, and conflict intensity, and by creating interaction terms between these features. If these steps lead to improved performance with our current models, that would be ideal. However, if the enhancements are insufficient due to the complex relationships between features, we may need to consider switching to a different dataset to better capture the variability in fatalities.
+</p>
+<h2>Conclusion</h2>
+<p>
+    This project has been a valuable learning experience, allowing us to understand and implement the entire machine learning project workflow. We started by identifying an appropriate dataset, followed by data pre-processing, selecting suitable models for training, tuning parameters, and analyzing the results. Although the results were not as ideal as we had hoped, we have gained significant insights into handling dataset imbalance and the importance of incorporating relevant features to improve model performance. This experience has equipped us with practical skills and knowledge that will be beneficial for future machine learning projects.
+</p>
+<br>
+<p>
+    Despite the challenges faced and the less-than-ideal outcomes, we now have a clearer understanding of the complexities involved in predictive modeling within the social sciences. This project has laid a strong foundation for further exploration and improvement. By addressing the identified issues and potentially exploring new datasets, we are confident that we can achieve better results in future endeavors. Overall, this project has not only advanced our technical skills but also reinforced the importance of continuous learning and adaptation in the field of machine learning.
+</p>
+
+
 <h2>References</h2>
-<p>[1]"NOAA/NGDC - Earth Observation Group - Defense Meteorological Satellite Progam, Boulder," www.ngdc.noaa.gov. https://www.ngdc.noaa.gov/eog/viirs/download_ut_mos.html.</p>
-<p>[2]ACLED, "Data Export Tool | ACLED," ACLED, Jun. 13, 2019. https://acleddata.com/data-export-tool/</p>
-<p>[3]"Ukraine Roads (OpenStreetMap Export) - Humanitarian Data Exchange," data.humdata.org. https://data.humdata.org/dataset/hotosm_ukr_roads.</p>
-<p>[4]University of Groningen and University of California, Davis, "Real GDP at Constant National Prices for Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1990. https://fred.stlouisfed.org/series/RGDPNAUAA666NRUG</p>
-<p>[5]"List of Ukrainian subdivisions by GDP per capita," Wikipedia, Apr. 23, 2024. https://en.wikipedia.org/wiki/List_of_Ukrainian_subdivisions_by_GDP_per_capita#cite_note-1</p>
-<p>[6]U.S. Census Bureau and U.S. Bureau of Economic Analysis, "U.S. Imports of Goods by Customs Basis from Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1992. https://fred.stlouisfed.org/series/IMP4623</p>
-<p>[7]U.S. Census Bureau and U.S. Bureau of Economic Analysis, "U.S. Exports of Goods by F.A.S. Basis to Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1992. https://fred.stlouisfed.org/series/EXP4623</p>
-<p>[8]Kiel Institute for the World Economy, "Ukraine Support Tracker - A Database of Military, Financial and Humanitarian Aid to Ukraine," Kiel Institute for the World Economy, Feb. 16, 2024. https://www.ifw-kiel.de/topics/war-against-ukraine/ukraine-support-tracker/‌</p>
+<p>[1]“Conflict Exposure,” ACLED. https://acleddata.com/conflict-exposure/ (accessed Apr. 12, 2024).</p>
+<p>[2]“Data Export Tool,” ACLED. https://acleddata.com/data-export-tool/# (accessed Jul. 01, 2024).</p>
+<p>[3]“catboost/catboost,” GitHub, Aug. 22, 2022. https://github.com/catboost/catboost‌</p>
 
 <h3>Contribution</h3>
 <table>
@@ -56,15 +169,15 @@
     </tr>
     <tr>
         <td>Lin Yang</td>
-        <td>Background & Relevant dataset Research</td>
+        <td>Model design and selection, Feature reduction, Data analysis, Implementation</td>
     </tr>
     <tr>
         <td>Sophia Chen</td>
-        <td>Method & Potential Results Research</td>
+        <td>Data preprocessing, Data visualization, Data analysis, Implementation</td>
     </tr>
     <tr>
         <td>Suhyun Lee</td>
-        <td>Problem & Motivation Research, Github Page Management</td>
+        <td>Data preprocessing, Github Page Management, Data analysis, Implementation</td>
     </tr>
 </table>
 <p></p>
