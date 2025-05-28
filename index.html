@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+<h1>Proposal</h1>
+<h2>Introduction</h2>
+<p>
+    On February 24th, 2022, Russian forces launched a major invasion of Ukraine, marking a significant escalation in the Russo-Ukrainian war that began in 2014. The conflict has resulted in thousands of deaths and the greatest European refugee crisis since World War II. Traditional methods of collecting economic data, such as surveys and vital statistics, often lag during war time. 
+    To address this, We want to utilize satellite data along with machine learning, for timely assessments of socio-economic consequences of the war.
+    <br>
+    <br>
+    Our satellite data includes Nighttime Lights Imagery offered by ΝΟΑΑ [1], a heatmap of battles in Ukraine from Jan 1st 2018 to May 24 2024 [2], major cities with significant fighting, major highways [3], borders of Ukraine and 27 oblast borders. 
+    For socio-economic indicators, we consider annual measures of Gross National Income (GNI), Purchasing Power Parity (PPP), Gross Domestic Product (GDP) from 1987-2022 [4]. 
+    We also include Ukraine's subdivision-level Gross State Product (GSP) from  2004 to 2020 [5], monthly data on U.S. Imports of Goods by Customs Basis from Ukraine [6], U.S. Exports of Goods by F.A.S. Basis to Ukraine [7] and total bilateral aid received [8].
+    
+</p>
+<h2>Problem definition</h2>
+<p>
+    Identifying the socioeconomic consequences of an ongoing war is crucial for policymakers to design targeted interventions that address the most pressing issues. 
+    However, measuring the index is challenging since many areas affected by war are inaccessible due to security risks and therefore limits the scope of data collection. 
+    Therefore, the result of this project would provide the socioeconomic index that will help Ukraine to restore stability, promote recovery, and ensure long-term development. 
+</p>
+<h2>Methods</h2>
+<p>
+    For data preprocessing, we will utilize OpenCV library to precisely extract data pertaining to Ukraine from global nighttime light data. Then, we will use functions from the Pandas library for data cleaning, including handling missing values and removing outliers. Additionally, we will employ functions from the scikit-learn library for feature standardization, ensuring the consistency of various economic indicators within the model.
+    <br><br>
+    We plan to implement three Machine Learning models: Convolutional Neural Network (CNN), Random Forest, and Long Short-Term Memory Network (LSTM). The CNN will be used to extract spatial features from nighttime light data, handling the complexity of geographical information. The Random Forest will be used to analyze and predict economic indicator data, with its efficient feature importance assessment. The LSTM will process time series data, it’s ideal for predicting economic dynamic changes.
+</p>
+<h2>Goals & Expected Results</h2>
+<p>
+    We aim to employ three quantitative metrics to evaluate our model: Accuracy, Mean Squared Error (MSE), and F1 Score. Accuracy will measure the proportion of correct predictions made by the model, with a goal of exceeding 85%. MSE will ensure precise forecast accuracy , with a target set below a predetermined threshold. F1 Score will assess the balance between precision and recall, aiming for a score above 0.75 across all models.
+    <br><br>
+    We anticipate that our approach will effectively identify and categorize changes in Ukraine's nighttime light intensity. We also expect that our model will forecast future economic trends, to provide valuable insights for future regional analysis.
+</p>
+<h2>References</h2>
+<p>[1]"NOAA/NGDC - Earth Observation Group - Defense Meteorological Satellite Progam, Boulder," www.ngdc.noaa.gov. https://www.ngdc.noaa.gov/eog/viirs/download_ut_mos.html.</p>
+<p>[2]ACLED, "Data Export Tool | ACLED," ACLED, Jun. 13, 2019. https://acleddata.com/data-export-tool/</p>
+<p>[3]"Ukraine Roads (OpenStreetMap Export) - Humanitarian Data Exchange," data.humdata.org. https://data.humdata.org/dataset/hotosm_ukr_roads.</p>
+<p>[4]University of Groningen and University of California, Davis, "Real GDP at Constant National Prices for Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1990. https://fred.stlouisfed.org/series/RGDPNAUAA666NRUG</p>
+<p>[5]"List of Ukrainian subdivisions by GDP per capita," Wikipedia, Apr. 23, 2024. https://en.wikipedia.org/wiki/List_of_Ukrainian_subdivisions_by_GDP_per_capita#cite_note-1</p>
+<p>[6]U.S. Census Bureau and U.S. Bureau of Economic Analysis, "U.S. Imports of Goods by Customs Basis from Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1992. https://fred.stlouisfed.org/series/IMP4623</p>
+<p>[7]U.S. Census Bureau and U.S. Bureau of Economic Analysis, "U.S. Exports of Goods by F.A.S. Basis to Ukraine," FRED, Federal Reserve Bank of St. Louis, Jan. 01, 1992. https://fred.stlouisfed.org/series/EXP4623</p>
+<p>[8]Kiel Institute for the World Economy, "Ukraine Support Tracker - A Database of Military, Financial and Humanitarian Aid to Ukraine," Kiel Institute for the World Economy, Feb. 16, 2024. https://www.ifw-kiel.de/topics/war-against-ukraine/ukraine-support-tracker/‌</p>
+
+<h3>Contribution</h3>
+<table>
+    <tr>
+        <td>Name</td>
+        <td>Proposal Contribution</td>
+    </tr>
+    <tr>
+        <td>Lin Yang</td>
+        <td>Background & Relevant dataset Research</td>
+    </tr>
+    <tr>
+        <td>Sophia Chen</td>
+        <td>Method & Potential Results Research</td>
+    </tr>
+    <tr>
+        <td>Suhyun Lee</td>
+        <td>Problem & Motivation Research, Github Page Management</td>
+    </tr>
+</table>
+<p></p>
+<a href="https://docs.google.com/spreadsheets/d/1_A3SQcbD-vLdonWEeJf_bGmy6jMYZezV/edit?usp=sharing&ouid=116738410185203761765&rtpof=true&sd=true">
+    <button>See GanttChart</button>
+</a>
+</body>
+</html>
