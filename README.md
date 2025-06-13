@@ -22,7 +22,8 @@ This project analyzes data related to fatalities in Ukraine. The goal is to prov
 3. Run the analysis scripts as described in the `notebooks/` or `src/` directory.
 
 ## Website Link
-Report and summary is available in the following link. Check it out!
+Report and summary is available in the following link. Check it out! 
+
 [Link](https://sue0-si.github.io/Ukraine_Fatalities_Analysis/)
 
 ## Data Sources
